@@ -1,0 +1,28 @@
+{% extends 'routes/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="glass-panel text-center">
+            <h2 class="mb-4">Traversal Result</h2>
+            <div class="mb-5">
+                <p class="text-muted pb-0 mb-0">Starting from</p>
+                <div class="display-6 fw-bold text-accent">{{ start_airport.name }}</div>
+                <div class="my-3">
+                    <span class="badge bg-primary px-3 py-2">DIRECTION: {{ direction }}</span>
+                </div>
+            </div>
+
+            <div class="py-4 border-top border-secondary">
+                <div class="text-muted mb-2">Last Reachable Node:</div>
+                <div class="display-3 fw-bold text-white">{{ last_airport.name }}</div>
+            </div>
+
+            <div class="mt-5">
+                <a href="{% url 'search_last' %}" class="btn btn-primary me-2">New Search</a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

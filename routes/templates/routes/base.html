@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Routes Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent-color) !important;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: var(--text-muted) !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+            transform: translateY(-1px);
+        }
+
+        .hero-section {
+            padding: 80px 0;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent);
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: var(--text-main);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container text-center">
+            <a class="navbar-brand mx-auto" href="{% url 'home' %}">FLIGHT ROUTES</a>
+            <div class="d-flex gap-4">
+                <a class="nav-link" href="{% url 'add_route' %}">Add Route</a>
+                <a class="nav-link" href="{% url 'search_last' %}">Search Node</a>
+                <a class="nav-link" href="{% url 'stats' %}">Duration Stats</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        {% block content %}
+        <div class="hero-section text-center">
+            <h1 class="display-4 fw-bold mb-4">Manage Airport Routes Efficiently</h1>
+            <p class="lead text-muted mb-5">A high-performance binary tree system for airport connectivity.</p>
+            <div class="row g-4 text-start">
+                <div class="col-md-6">
+                    <div class="glass-panel">
+                        <h3 class="mb-3">Airports</h3>
+                        <ul class="list-group list-group-flush bg-transparent">
+                            {% for airport in airports %}
+                            <li class="list-group-item bg-transparent text-white border-secondary">{{ airport.name }}</li>
+                            {% empty %}
+                            <li class="list-group-item bg-transparent text-muted border-secondary">No airports added yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel">
+                        <h3 class="mb-3">Recent Routes</h3>
+                        <ul class="list-group list-group-flush bg-transparent">
+                            {% for route in routes %}
+                            <li class="list-group-item bg-transparent text-white border-secondary">
+                                {{ route.parent_airport }} &rarr; {{ route.child_airport }} 
+                                <span class="badge bg-info ms-2">{{ route.position }}</span>
+                                <span class="badge bg-secondary ms-2">{{ route.duration }}m</span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item bg-transparent text-muted border-secondary">No routes established.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+
+    <footer class="footer text-center text-muted">
+        <div class="container">
+            <p>&copy; 2026 Flight Routes Management System. Premium Edition.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

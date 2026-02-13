@@ -1,0 +1,47 @@
+{% extends 'routes/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center g-4">
+    <div class="col-md-6">
+        <div class="glass-panel h-100">
+            <div class="text-center mb-4">
+                <h2 class="mb-0 text-danger">Longest Path</h2>
+                <small class="text-muted">Maximum travel duration detected</small>
+            </div>
+            {% if longest_route %}
+            <div class="text-center">
+                <div class="display-6 mb-3">{{ longest_route.parent_airport }} &rarr; {{ longest_route.child_airport }}
+                </div>
+                <div class="h2 text-white">{{ longest_route.duration }} <span class="h6 text-muted">minutes</span></div>
+                <div class="badge bg-secondary mt-2">Position: {{ longest_route.position }}</div>
+            </div>
+            {% else %}
+            <p class="text-center text-muted">No routes found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="glass-panel h-100">
+            <div class="text-center mb-4">
+                <h2 class="mb-0 text-success">Shortest Path</h2>
+                <small class="text-muted">Minimum travel duration detected</small>
+            </div>
+            {% if shortest_route %}
+            <div class="text-center">
+                <div class="display-6 mb-3">{{ shortest_route.parent_airport }} &rarr; {{ shortest_route.child_airport }}</div>
+                <div class="h2 text-white">{{ shortest_route.duration }} <span class="h6 text-muted">minutes</span>
+                </div>
+                <div class="badge bg-secondary mt-2">Position: {{ shortest_route.position }}</div>
+            </div>
+            {% else %}
+            <p class="text-center text-muted">No routes found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-12 text-center mt-5">
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">Go Back Home</a>
+    </div>
+</div>
+{% endblock %}
